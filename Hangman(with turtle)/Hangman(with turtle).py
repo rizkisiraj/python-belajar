@@ -2,7 +2,7 @@ import turtle
 import random
 
 t = turtle.Turtle()
-
+wn = turtle.Screen()
 # rules for the game
 def da_rules(x):
     if x == 5:
@@ -39,34 +39,48 @@ def da_rules(x):
         t.left(120)
         t.forward(100)
         t.backward(100)
+        new_game = turtle.textinput("do u want to play again?", "'y' for yes and 'n' for no")
+        while bool(new_game) == False:
+            new_game = turtle.textinput("input valid key", "'y' for yes and 'n' for no")
+            
+        if new_game == 'y':
+            wn.clear()
+            hangman()
+        elif new_game == 'n':
+            quit()
+        
 
 # prepare turtle
-t.hideturtle()
-turtle.hideturtle()
-t.speed(10)
-turtle.speed(0)
-t.penup()
-t.forward(100)
-t.right(90)
-t.forward(300)
-t.right(180)
-t.pendown()
-t.forward(500)
-t.left(90)
-t.fd(150)
-turtle.penup()
-turtle.delay(0)
+def prepare_turtle():
+    t.hideturtle()
+    turtle.hideturtle()
+    t.speed(10)
+    turtle.speed(0)
+    t.penup()
+    t.forward(100)
+    t.right(90)
+    t.forward(300)
+    t.right(180)
+    t.pendown()
+    t.forward(500)
+    t.left(90)
+    t.fd(150)
+    turtle.penup()
+    turtle.delay(0)
 
 # hangman gameplay
 def hangman():
-    wordbank = ['lebron', 'durant', 'curry', 'harris', 'embiid', 'simmons']
+    wordbank = ['lebron']
+    control_word = 'yn'
     tries = 6
     main_word = 'abcdefghijklmnopqrstuvwxyz'
     word = random.choice(wordbank)
     guessmade = ''
-    t.speed(10)
+    t.reset()
+    turtle.reset()
+    prepare_turtle()
     while len(word) > 0:
-        turtle.goto(-135,230)
+        turtle.goto(-135,-300)
         main = ''
         for letter in word:
             if letter in guessmade:
@@ -76,8 +90,19 @@ def hangman():
                 turtle.write('_ ', True, font=("Courier", 14, "normal"))
         
         if main == word:
-            break
+            new_game = turtle.textinput("Congratulations!! do u want to play again?", "'y' for yes and 'n' for no")
+            while bool(new_game) == False or new_game not in control_word:
+                new_game = turtle.textinput("input valid key", "'y' for yes and 'n' for no")
+            
+            if new_game == 'y':
+                wn.clear()
+                hangman()
+            elif new_game == 'n':
+                quit()
+
+
         
+
         guess = turtle.textinput("Hangman", "Guess the word: ")
         
         if guess in main_word:
@@ -90,3 +115,5 @@ def hangman():
             da_rules(tries)
 
 hangman()
+turtle.mainloop()
+t.mainloop()
