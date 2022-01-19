@@ -96,5 +96,13 @@ while True:
         obs_one_up1.goto(300,300)
     if obs_one_down1.xcor() <-400:
         obs_one_down1.goto(300,-300)
+    
+    if (bird.xcor() + 10 > obs_one_up.xcor() - 30) and (bird.xcor() - 10 < obs_one_up.xcor() + 30):
+        if (bird.ycor() + 10 > obs_one_up.ycor() - 200) or (bird.ycor() - 10 < obs_one_down.ycor() + 250):
+            break
+    if (bird.xcor() + 10 > obs_one_up1.xcor() - 30) and (bird.xcor() - 10 < obs_one_up1.xcor() + 30):
+        if (bird.ycor() + 10 > obs_one_up1.ycor() - 300) or (bird.ycor() - 10 < obs_one_down1.ycor() + 200):
+            break
+
 
 turtle.mainloop()
